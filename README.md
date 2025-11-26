@@ -54,7 +54,7 @@ Bu endpointte TotalAmount ve customerId değerlerinin güncellenmediği testpit 
 
 ### 7. İndirim Hesaplama Hatası
 
-`DiscountService.CalculateLoyaltyDiscount` metodu için unit testler yazın
+`DiscountService.CalculateLoyaltyDiscount` metodu için ;
 
 - VIP müşterilere her zaman %10 indirim uygulanmalıdır.
 - Diğer indirim kademelerindeki indirimlerin üst üste uygulanması engellenmelidir.
