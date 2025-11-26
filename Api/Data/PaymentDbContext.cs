@@ -16,8 +16,8 @@ public class PaymentDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Customer>().HasData(
-            new Customer { Id = 1, Name = "John Doe", Email = "john@example.com", Phone = "1234567890", CreatedAt = DateTime.UtcNow },
-            new Customer { Id = 2, Name = "Jane Smith", Email = "jane@example.com", Phone = "0987654321", CreatedAt = DateTime.UtcNow }
+            new Customer { Id = 1, Name = "John Doe", Email = "john@example.com", Phone = "1234567890", IsVip = true, CreatedAt = DateTime.UtcNow },
+            new Customer { Id = 2, Name = "Jane Smith", Email = "jane@example.com", Phone = "0987654321", IsVip = false, CreatedAt = DateTime.UtcNow }
         );
 
         modelBuilder.Entity<Order>().HasData(

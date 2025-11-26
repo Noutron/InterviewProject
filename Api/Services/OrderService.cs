@@ -7,10 +7,12 @@ namespace Api.Services;
 public class OrderService
 {
     private readonly PaymentDbContext _context;
+    private readonly DiscountService _discountService;
 
-    public OrderService(PaymentDbContext context)
+    public OrderService(PaymentDbContext context, DiscountService discountService)
     {
         _context = context;
+        _discountService = discountService;
     }
 
     public async Task<List<Order>> GetAllOrdersWithCustomers()
@@ -48,6 +50,29 @@ public class OrderService
             .ToListAsync();
 
         return orders;
+    }
+    
+    public async Task<OrderSummary> GetOrderSummary(int orderId)
+    {
+        var order = await _context.Orders
+            .Include(o => o.Customer)
+            .FirstOrDefaultAsync(o => o.Id == orderId);
+
+        var customerOrderCount = await _context.Orders
+            .CountAsync(o => o.CustomerId == order.CustomerId);
+
+        var discount = _discountService.CalculateLoyaltyDiscount(
+            order.TotalAmount,
+            customerOrderCount,
+            order.Customer.IsVip
+        );
+
+        return new OrderSummary(
+            order.Id,
+            order.TotalAmount,
+            discount,
+            order.TotalAmount - discount
+        );
     }
 }
 

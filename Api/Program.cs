@@ -14,6 +14,7 @@ builder.Services.AddSingleton<PaymentService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<ReportService>();
 builder.Services.AddScoped<TestService>();
+builder.Services.AddScoped<DiscountService>();
 
 var app = builder.Build();
 
@@ -85,7 +86,13 @@ app.MapGet("/api/test/order/{orderId}", async (int orderId, TestService testServ
     return Results.Ok(total);
 });
 
+app.MapGet("/api/orders/{id}/summary", async (int id, OrderService orderService) =>
+{
+    var summary = await orderService.GetOrderSummary(id);
+    return Results.Ok(summary);
+});
+
 app.Run();
 
-record CreatePaymentRequest(int OrderId, decimal Amount);
+record CreatePaymentRequest(int OrderId, decimal Amount, string CardNumber);
 record UpdateStatusRequest(int Status);
