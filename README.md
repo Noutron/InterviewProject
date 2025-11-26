@@ -8,7 +8,7 @@ Projede şu anda global bir exception handling mekanizması bulunmamaktadır. A�
 
 - Tüm hataları yakalayan bir middleware yazın
 
-Her API isteğinde aşağıdaki işlemleri yapan bir middleware geliştirin:
+### 2. Her API isteğinde aşağıdaki işlemleri yapan bir middleware geliştirin:
 
 - Request header'dan customer bilgisini okuyun (örn: X-Customer-Id)
 - Bu bilgiyle veritabanından ilgili customer'ı sorgulayın
